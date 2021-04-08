@@ -6,9 +6,11 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float idle1Timer = 0f;
     public Transform movePoint;
     public Tilemap backTilemap;
     public Tilemap wallsTilemap;
+    public Animator animator;
 
     private PathGraph pathGraph;
     private List<PathNode> movePath = null;
@@ -78,6 +80,12 @@ public class PlayerController : MonoBehaviour
         } else {
             isMoving = false;
         }
+    }
+
+    void FixedUpdate() 
+    {
+        float idle1Timer = animator.GetFloat("Idle1Timer") + Time.fixedDeltaTime;
+        animator.SetFloat("Idle1Timer", idle1Timer);
     }
 
     private void MoveToNextPos()
